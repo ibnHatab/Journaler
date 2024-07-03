@@ -11,6 +11,7 @@ abstract class BaseActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayout())
+        setTitle(getActivityTitle())
         Log.v(tag, "[ ON CREATE ]")
     }
 
@@ -55,4 +56,5 @@ abstract class BaseActivity : FragmentActivity() {
         Log.v(tag, "[ ON DESTROY ]")
     }
 
+    abstract fun getActivityTitle(): Int
 }
