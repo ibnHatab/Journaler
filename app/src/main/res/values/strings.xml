@@ -2,4 +2,8 @@
     <string name="app_name">Jornaler</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_base">BaseActivity</string>
+    <string name="title">Title</string>
+    <string name="your_note_content_goes_here">your_note_content_goes_here</string>
+    <string name="pick_a_date">Pick a date</string>
+    <string name="pick_time">Pick time</string>
 </resources>

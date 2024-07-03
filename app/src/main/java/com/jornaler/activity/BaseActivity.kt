@@ -2,16 +2,21 @@ package com.jornaler.activity
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
+import com.jornaler.R
+
 
 abstract class BaseActivity : FragmentActivity() {
     protected abstract val tag: String
     protected abstract fun getLayout(): Int
+    protected abstract fun getActivityTitle(): Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayout())
-        setTitle(getActivityTitle())
+        val activityTitle: TextView = findViewById(R.id.activity_title)
+        activityTitle.setText(getActivityTitle())
         Log.v(tag, "[ ON CREATE ]")
     }
 
@@ -56,5 +61,5 @@ abstract class BaseActivity : FragmentActivity() {
         Log.v(tag, "[ ON DESTROY ]")
     }
 
-    abstract fun getActivityTitle(): Int
+
 }
