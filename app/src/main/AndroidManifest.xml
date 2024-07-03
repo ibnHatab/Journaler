@@ -14,10 +14,17 @@
         android:theme="@style/Theme.Jornaler"
         tools:targetApi="31">
         <activity
+            android:name=".activity.TodoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.NoteActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.MainActivity"
-            android:exported="true"
-            android:label="@string/title_activity_main"
-            android:theme="@style/Theme.Jornaler">
+            android:exported="true">
+
+            <!-- android:label="@string/title_activity_main" -->
+            <!-- android:theme="@style/Theme.Jornaler"> -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
