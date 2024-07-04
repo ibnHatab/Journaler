@@ -2,21 +2,34 @@ package com.jornaler.activity
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.FragmentActivity
+import androidx.viewbinding.ViewBinding
 import com.jornaler.R
+import com.jornaler.databinding.ActivityMainBinding
 
 
-abstract class BaseActivity : FragmentActivity() {
+abstract class BaseActivity : AppCompatActivity() {
     protected abstract val tag: String
     protected abstract fun getLayout(): Int
     protected abstract fun getActivityTitle(): Int
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayout())
-        val activityTitle: TextView = findViewById(R.id.activity_title)
-        activityTitle.setText(getActivityTitle())
+
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
         Log.v(tag, "[ ON CREATE ]")
     }
 

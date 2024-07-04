@@ -21,7 +21,7 @@ abstract class BaseFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         Log.d(logTag, "[ ON CREATE VIEW ]")
-        return inflater?.inflate(getLayout(), container, false)
+        return inflater.inflate(getLayout(), container, false)
     }
 
     override fun onPause() {

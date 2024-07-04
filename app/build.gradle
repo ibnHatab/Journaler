@@ -24,13 +24,6 @@ android {
         debug {
             applicationIdSuffix ".dev"
         }
-        staging {
-            debuggable true
-            applicationIdSuffix ".sta"
-        }
-        preproduction {
-            applicationIdSuffix ".pre"
-        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -45,6 +38,7 @@ android {
     }
     buildFeatures {
         compose true
+        viewBinding true
     }
     composeOptions {
         kotlinCompilerExtensionVersion '1.5.1'
