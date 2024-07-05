@@ -6,17 +6,19 @@ import android.util.Log
 import com.journaler.R
 import com.journaler.model.MODE
 
+
 abstract class ItemActivity : BaseActivity() {
-    private var mode = MODE.VIEW
-    private var success = Activity.RESULT_CANCELED
+
+    protected var mode = MODE.VIEW
+    protected var success = Activity.RESULT_CANCELED
 
     override fun getActivityTitle() = R.string.app_name
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val data = intent.data
-        data?.let {
-            val modeToSet = intent.getIntExtra(MODE.EXTRAS_KEY, MODE.VIEW.mode)
+        val data = intent.extras
+        data?.let{
+            val modeToSet = data.getInt(MODE.EXTRAS_KEY, MODE.VIEW.mode)
             mode = MODE.getByValue(modeToSet)
         }
         Log.v(tag, "Mode [ $mode ]")
@@ -26,4 +28,5 @@ abstract class ItemActivity : BaseActivity() {
         super.onDestroy()
         setResult(success)
     }
+
 }

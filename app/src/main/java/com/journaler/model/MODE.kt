@@ -1,6 +1,7 @@
 package com.journaler.model
 
-enum class MODE (val mode: Int) {
+
+enum class MODE(val mode: Int) {
     CREATE(0),
     EDIT(1),
     VIEW(2);
@@ -17,6 +18,6 @@ enum class MODE (val mode: Int) {
             }
             return VIEW
         }
-
     }
+
 }

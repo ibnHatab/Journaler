@@ -6,17 +6,16 @@ import android.util.Log
 import com.journaler.Journaler
 
 
-class DbHelper(private val dbName: String, val version: Int) : SQLiteOpenHelper(Journaler.ctx, dbName, null, version) {
+class DbHelper(dbName: String, val version: Int) : SQLiteOpenHelper(Journaler.ctx, dbName, null, version) {
 
     companion object {
-       const val ID: String = "_id"
-       const val TABLE_TODOS = "todos"
-       const val TABLE_NOTES = "notes"
-       const val COLUMN_TITLE: String = "title"
-       const val COLUMN_MESSAGE: String = "message"
-       const val COLUMN_SCHEDULED: String = "scheduled"
-       const val COLUMN_LOCATION_LATITUDE: String = "latitude"
-       const val COLUMN_LOCATION_LONGITUDE: String = "longitude"
+        val ID: String = "_id"
+        val TABLE_TODOS = "todos"
+        val TABLE_NOTES = "notes"
+        val COLUMN_TITLE: String = "title"
+        val COLUMN_MESSAGE: String = "message"
+        val COLUMN_LOCATION: String = "location"
+        val COLUMN_SCHEDULED: String = "scheduled"
     }
 
     private val tag = "DbHelper"
@@ -27,8 +26,7 @@ class DbHelper(private val dbName: String, val version: Int) : SQLiteOpenHelper(
                                         $ID integer PRIMARY KEY autoincrement,
                                         $COLUMN_TITLE text,
                                         $COLUMN_MESSAGE text,
-                                        $COLUMN_LOCATION_LATITUDE real,
-                                        $COLUMN_LOCATION_LONGITUDE real
+                                        $COLUMN_LOCATION text
                                     )
                                     """
 
@@ -39,8 +37,7 @@ class DbHelper(private val dbName: String, val version: Int) : SQLiteOpenHelper(
                                         $COLUMN_TITLE text,
                                         $COLUMN_MESSAGE text,
                                         $COLUMN_SCHEDULED integer,
-                                        $COLUMN_LOCATION_LATITUDE real,
-                                        $COLUMN_LOCATION_LONGITUDE real
+                                        $COLUMN_LOCATION text
                                     )
                                     """
 

@@ -1,15 +1,42 @@
 package com.journaler.model
 
 import android.location.Location
-import com.journaler.database.DbModel
+import android.os.Parcel
+import android.os.Parcelable
 
-
-data class Note(
-    var title: String,
-    var message: String,
-    var location: Location
-) : DbModel() {
+class Note(
+        title: String,
+        message: String,
+        location: Location
+) : Entry(
+        title,
+        message,
+        location
+), Parcelable {
 
     override var id = 0L
+
+    constructor(parcel: Parcel) : this(
+        parcel.readString().toString(),
+        parcel.readString().toString(),
+        parcel.readParcelable(Location::class.java.classLoader)!!
+    ) {
+        id = parcel.readLong()
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(title)
+        parcel.writeString(message)
+        parcel.writeParcelable(location, 0)
+        parcel.writeLong(id)
+    }
+
+    override fun describeContents(): Int = 0
+
+    companion object CREATOR : Parcelable.Creator<Note> {
+        override fun createFromParcel(parcel: Parcel): Note = Note(parcel)
+
+        override fun newArray(size: Int): Array<Note?> = arrayOfNulls(size)
+    }
 
 }

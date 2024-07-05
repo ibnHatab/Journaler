@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
 import android.view.Menu
 import android.view.View
@@ -16,11 +17,9 @@ import com.journaler.R
 import com.journaler.extension.getAnimation
 import com.journaler.permission.PermissionCompatActivity
 
-
 abstract class BaseActivity : PermissionCompatActivity() {
 
     companion object {
-        val REQUEST_GPS = 0
 
         private var fontExoBold: Typeface? = null
         private var fontExoRegular: Typeface? = null
@@ -36,37 +35,31 @@ abstract class BaseActivity : PermissionCompatActivity() {
                         applyFonts(view.getChildAt(x), ctx)
                     }
                 }
-
                 is Button -> {
                     when (vTag) {
                         ctx.getString(R.string.tag_font_bold) -> {
                             view.typeface = fontExoBold
                         }
-
                         else -> {
                             view.typeface = fontExoRegular
                         }
                     }
                 }
-
                 is TextView -> {
                     when (vTag) {
                         ctx.getString(R.string.tag_font_bold) -> {
                             view.typeface = fontExoBold
                         }
-
                         else -> {
                             view.typeface = fontExoRegular
                         }
                     }
                 }
-
                 is EditText -> {
                     when (vTag) {
                         ctx.getString(R.string.tag_font_bold) -> {
                             view.typeface = fontExoBold
                         }
-
                         else -> {
                             view.typeface = fontExoRegular
                         }
@@ -76,34 +69,45 @@ abstract class BaseActivity : PermissionCompatActivity() {
         }
     }
 
+    private lateinit var toolbar: Toolbar
 
     protected abstract val tag: String
+
     protected abstract fun getLayout(): Int
+    protected abstract fun getToolbar(): Int
+
     protected abstract fun getActivityTitle(): Int
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        return true
+    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
+        val view = super.onCreateView(name, context, attrs)
+        return view
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         setContentView(getLayout())
 
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        toolbar = findViewById(getToolbar())
         setSupportActionBar(toolbar)
 
         Log.v(tag, "[ ON CREATE ]")
         requestPermissions(
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
         )
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        return true
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
         Log.v(tag, "[ ON POST CREATE ]")
+        applyFonts()
     }
 
     override fun onRestart() {
@@ -113,15 +117,14 @@ abstract class BaseActivity : PermissionCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-
         Log.v(tag, "[ ON START ]")
     }
 
     override fun onResume() {
         super.onResume()
         Log.v(tag, "[ ON RESUME ]")
-        val anim = getAnimation(R.anim.top_to_bottom)
-        findViewById<Toolbar>(R.id.toolbar).startAnimation(anim)
+        val animation = getAnimation(R.anim.top_to_bottom)
+        findViewById<View>(getToolbar()).startAnimation(animation)
     }
 
     override fun onPostResume() {
@@ -133,7 +136,7 @@ abstract class BaseActivity : PermissionCompatActivity() {
         super.onPause()
         Log.v(tag, "[ ON PAUSE ]")
         val animation = getAnimation(R.anim.hide_to_top)
-        findViewById<Toolbar>(R.id.toolbar).startAnimation(animation)
+        findViewById<View>(getToolbar()).startAnimation(animation)
     }
 
     override fun onStop() {
@@ -146,10 +149,10 @@ abstract class BaseActivity : PermissionCompatActivity() {
         Log.v(tag, "[ ON DESTROY ]")
     }
 
-    protected fun applyFonts() {
+    private fun applyFonts() {
         initFonts()
         Log.v(tag, "Applying fonts [ START ]")
-        val rootView = findViewById<ViewGroup>(android.R.id.content)
+        val rootView = findViewById<View>(android.R.id.content)
         applyFonts(rootView, this)
         Log.v(tag, "Applying fonts [ END ]")
     }
@@ -164,5 +167,6 @@ abstract class BaseActivity : PermissionCompatActivity() {
             fontExoRegular = Typeface.createFromAsset(assets, "fonts/Exo2-Regular.ttf")
         }
     }
+
 }
 
