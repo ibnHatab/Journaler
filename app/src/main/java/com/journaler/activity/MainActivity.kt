@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.journaler.R
+import com.journaler.databinding.ActivityMainBinding
 import com.journaler.fragment.ItemsFragment
 import com.journaler.navigation.NavigationDrawerAdapter
 import com.journaler.navigation.NavigationDrawerItem
@@ -76,6 +77,7 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
 
         pager = findViewById(R.id.pager)
         drawer_layout = findViewById(R.id.drawer_layout)

@@ -23,6 +23,7 @@ class TodoActivity : ItemActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pick_date = findViewById(R.id.pick_date)
+        pick_time = findViewById(R.id.pick_time)
 
         val data = intent.extras
         data?.let {

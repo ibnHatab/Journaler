@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.graphics.Typeface
 import android.os.Bundle
+import android.renderscript.ScriptGroup.Binding
 import android.util.AttributeSet
 import android.util.Log
 import android.view.Menu
@@ -13,6 +14,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.viewbinding.ViewBinding
 import com.journaler.R
 import com.journaler.extension.getAnimation
 import com.journaler.permission.PermissionCompatActivity
@@ -70,8 +72,8 @@ abstract class BaseActivity : PermissionCompatActivity() {
     }
 
     private lateinit var toolbar: Toolbar
-
     protected abstract val tag: String
+    protected lateinit var binding: ViewBinding
 
     protected abstract fun getLayout(): Int
     protected abstract fun getToolbar(): Int
@@ -87,6 +89,7 @@ abstract class BaseActivity : PermissionCompatActivity() {
         super.onCreate(savedInstanceState)
 
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
         setContentView(getLayout())
 
         toolbar = findViewById(getToolbar())

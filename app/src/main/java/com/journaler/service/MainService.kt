@@ -60,6 +60,7 @@ class MainService : Service(), DataSynchronization {
      * Its asynchronous equivalent is: enqueue().
      */
     override fun synchronize() {
+        return
         executor.execute {
             Log.i(tag, "Synchronizing data [ START ]")
             var headers = BackendServiceHeaderMap.obtain()
