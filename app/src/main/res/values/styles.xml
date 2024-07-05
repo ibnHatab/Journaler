@@ -21,7 +21,7 @@
     </style>
 
     <style name="simple_button_grey" parent="simple_button">
-        <item name="android:background">@color/grey_disabled</item>
+        <item name="android:background">@drawable/selector_button_grey</item>
     </style>
 
     <style name="edit_text_transparent">
